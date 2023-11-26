@@ -8,6 +8,7 @@ import { useSession, signOut, signIn, getProviders} from "next-auth/react"
 
 
 const Nav = () => {
+  const {data: session} = useSession()
   const [providers, setProviders] = useState(null);
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const Nav = () => {
     getAndSetProviders()
   }, [])
 
-  const isLoggedIn = false;
   return (
     <nav className="flex-between w-full mb-16 pt-6">
         <Link href="/" className="flex gap-2 flex-center">
@@ -30,8 +30,7 @@ const Nav = () => {
             />
             <p className="logo_text">My prompts</p>
         </Link>
-
-        {isLoggedIn ? (
+        {session?.user ? (
             <div className="flex gap-3 md:gap-5">
                 <Link 
                     href="create-prompt"
