@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import PromptCard from "./PromptCard";
+import { API_URLS } from "@constants";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -26,13 +27,13 @@ const Feed = () => {
   const [searchTimeout, setSearchTimeout] = useState(null);
   const [searchedResults, setSearchedResults] = useState([]);
 
-  const fetchPosts = async () => {
-    const response = await fetch("/api/prompt");
-    const data = await response.json();
-    setAllPosts(data);
-  };
-
   useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch(API_URLS.GET_PROMPT);
+      const data = await response.json();
+      setAllPosts(data);
+    };
+
     fetchPosts();
   }, []);
 

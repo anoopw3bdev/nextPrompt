@@ -1,25 +1,48 @@
-import PromptCard from "./PromptCard";
+"use client"
 
-const Profile = ({ name, desc, data, handleEdit, handleDelete }) => {
+import { useEffect, useState } from "react";
+
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+import Profile from "@components/Profile";
+import { API_URLS } from "@constants";
+
+const MyProfile = () => {
+  const {data: session} = useSession();
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if(session?.user.id) {
+      const fetchPosts = async () => {
+        const url = API_URLS.GET_POSTS(session?.user.id);
+        const response = await fetch(url);
+        const data = await response.json();
+        setPosts(data);
+      };
+      
+      fetchPosts();
+    }
+  }, []);
+
+  const handleEdit = async () => {
+
+  }
+
+  const handleDelete = async () => {
+
+  }
+
   return (
-    <section className='w-full'>
-      <h1 className='head_text text-left'>
-        <span className='blue_gradient'>{name} Profile</span>
-      </h1>
-      <p className='desc text-left'>{desc}</p>
+    <Profile
+      name={"My prompts"}
+      desc={"All prompst created by me"}
+      data={posts}
+      handleEdit={handleEdit}
+      handleDelete={handleDelete}
+    />
+  )
+}
 
-      <div className='mt-10 prompt_layout'>
-        {data.map((post) => (
-          <PromptCard
-            key={post._id}
-            post={post}
-            handleEdit={() => handleEdit && handleEdit(post)}
-            handleDelete={() => handleDelete && handleDelete(post)}
-          />
-        ))}
-      </div>
-    </section>
-  );
-};
-
-export default Profile;
+export default MyProfile
