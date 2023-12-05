@@ -29,7 +29,7 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(API_URLS.GET_PROMPT);
+      const response = await fetch(API_URLS.GET_PROMPTS);
       const data = await response.json();
       setAllPosts(data);
     };

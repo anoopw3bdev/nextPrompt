@@ -10,6 +10,7 @@ import { API_URLS } from "@constants";
 
 const MyProfile = () => {
   const {data: session} = useSession();
+  const router = useRouter();
 
   const [posts, setPosts] = useState([]);
 
@@ -26,11 +27,11 @@ const MyProfile = () => {
     }
   }, []);
 
-  const handleEdit = async () => {
-
+  const handleEdit = async (post) => {
+    router.push(`update-prompt?id=${post._id}`)
   }
 
-  const handleDelete = async () => {
+  const handleDelete = async (post) => {
 
   }
 
