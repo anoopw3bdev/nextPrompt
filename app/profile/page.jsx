@@ -24,6 +24,8 @@ const MyProfile = () => {
       };
       
       fetchPosts();
+    } else {
+      router.push("/");
     }
   }, []);
 

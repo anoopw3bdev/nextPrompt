@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { API_URLS, MODES } from '@constants'
@@ -15,6 +15,12 @@ const CreatePrompt = () => {
     prompt: "",
     tag: [],
   });
+
+  useLayoutEffect(() => {
+    if(!session?.user.id) {
+      router.push("/");
+    }
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();

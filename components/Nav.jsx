@@ -27,6 +27,7 @@ const Nav = () => {
                 width="40"
                 height="50"
                 className="object-contain"
+                alt="my prompts logo"
             />
             <p className="logo_text">My prompts</p>
         </Link>
