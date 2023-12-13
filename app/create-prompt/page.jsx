@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { API_URLS, MODES } from '@constants'
 import Form from '@components/Form'
+import Toast from '@components/Toast'
 
 const CreatePrompt = () => {
   const router = useRouter();
@@ -37,7 +38,7 @@ const CreatePrompt = () => {
           })
         }
       );
-
+        console.log(response, "response")
       if(response.ok) {
         router.push("/");
       }
@@ -49,13 +50,20 @@ const CreatePrompt = () => {
   }
 
   return (
-    <Form
+    <>
+      <Form
         type={MODES.CREATE}
         post={post}
         setPost={setPost}
         submitting={submitting}
         handleSubmit={handleSubmit}
-    />
+      />
+      <Toast
+        type="success"
+        message={"Successully created"}
+      />
+    </>
+    
   )
 }
 
