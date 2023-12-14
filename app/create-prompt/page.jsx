@@ -1,27 +1,21 @@
 "use client"
 
-import { useState, useLayoutEffect } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { API_URLS, MODES } from '@constants'
 import Form from '@components/Form'
-import Toast from '@components/Toast'
 
 const CreatePrompt = () => {
   const router = useRouter();
   const {data: session} = useSession();
 
   const [submitting, setSubmitting] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const [post, setPost] = useState({
     prompt: "",
     tag: [],
   });
-
-  useLayoutEffect(() => {
-    if(!session?.user.id) {
-      router.push("/");
-    }
-  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,9 +32,15 @@ const CreatePrompt = () => {
           })
         }
       );
-        console.log(response, "response")
       if(response.ok) {
-        router.push("/");
+        setShowToast(true);
+        setPost({
+          prompt: "",
+          tag: [],
+        })
+        setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
       }
     } catch (error) {
       console.debug(error)
@@ -50,20 +50,15 @@ const CreatePrompt = () => {
   }
 
   return (
-    <>
-      <Form
-        type={MODES.CREATE}
-        post={post}
-        setPost={setPost}
-        submitting={submitting}
-        handleSubmit={handleSubmit}
-      />
-      <Toast
-        type="success"
-        message={"Successully created"}
-      />
-    </>
-    
+    <Form
+      type={MODES.CREATE}
+      post={post}
+      setPost={setPost}
+      submitting={submitting}
+      handleSubmit={handleSubmit}
+      showToast={showToast}
+      setShowToast={setShowToast}
+    />
   )
 }
 

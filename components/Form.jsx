@@ -1,13 +1,17 @@
 import Link from "next/link";
+import Toast from "./Toast";
 
 const Form = ({
   type,
   post,
   setPost,
   submitting,
-  handleSubmit
+  handleSubmit,
+  showToast,
+  setShowToast,
 }) => {
   return (
+    <>
     <section className='w-full max-w-full '>
       <h1 className='head_text text-left'>
         <span className='blue_gradient'>{type} Post</span>
@@ -67,6 +71,14 @@ const Form = ({
         </div>
       </form>
     </section>
+    {
+      showToast &&
+      <Toast
+        message="Prompt created successfully"
+        onClose={() => setShowToast(false)}
+      />
+    }
+    </>
   );
 };
 

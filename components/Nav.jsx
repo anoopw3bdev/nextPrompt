@@ -38,6 +38,11 @@ const Nav = () => {
                     className="black_btn">
                         Create prompt
                 </Link>
+                <Link 
+                    href="profile"
+                    className="black_btn">
+                        Profile
+                </Link>
                 <button
                     className="outline_btn"
                     onClick={signOut}
