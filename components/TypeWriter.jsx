@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const Typewriter = ({ text, delay }) => {
-  const [currentText, setCurrentText] = useState('');
+  const [currentText, setCurrentText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -11,8 +11,8 @@ const Typewriter = ({ text, delay }) => {
 
     if (currentIndex < text.length) {
       timeout = setTimeout(() => {
-        setCurrentText(prevText => prevText + text[currentIndex]);
-        setCurrentIndex(prevVal => prevVal + 1)
+        setCurrentText((prevText) => prevText + text[currentIndex]);
+        setCurrentIndex((prevVal) => prevVal + 1);
       }, delay);
     }
     return () => clearTimeout(timeout);

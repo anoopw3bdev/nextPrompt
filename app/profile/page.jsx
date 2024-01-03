@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 
@@ -9,20 +9,20 @@ import Profile from "@components/Profile";
 import { API_URLS } from "@constants";
 
 const MyProfile = () => {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
 
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    if(session?.user.id) {
+    if (session?.user.id) {
       const fetchPosts = async () => {
         const url = API_URLS.GET_POSTS(session?.user.id);
         const response = await fetch(url);
         const data = await response.json();
         setPosts(data);
       };
-      
+
       fetchPosts();
     } else {
       router.push("/");
@@ -30,28 +30,25 @@ const MyProfile = () => {
   }, []);
 
   const handleEdit = async (post) => {
-    router.push(`update-prompt?id=${post._id}`)
-  }
+    router.push(`update-prompt?id=${post._id}`);
+  };
 
   const handleDelete = async (post) => {
     const hasConfirmed = confirm("Are you sure you want to delete the promot?");
 
-    if(hasConfirmed) {
+    if (hasConfirmed) {
       try {
         await fetch(API_URLS.GET_PROMPT(post._id), {
-          method: "DELETE"
+          method: "DELETE",
         });
 
-        const filteredPosts = posts.filter(p => 
-          p._id !== post._id
-        );
+        const filteredPosts = posts.filter((p) => p._id !== post._id);
         setPosts(filteredPosts);
-
       } catch (error) {
-        console.debug(error)
+        console.debug(error);
       }
     }
-  }
+  };
 
   return (
     <Profile
@@ -61,7 +58,7 @@ const MyProfile = () => {
       handleEdit={handleEdit}
       handleDelete={handleDelete}
     />
-  )
-}
+  );
+};
 
-export default MyProfile
+export default MyProfile;
