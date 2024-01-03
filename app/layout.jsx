@@ -11,6 +11,9 @@ export const metaData = {
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
+      <head>
+        <title>My prompts</title>
+      </head>
       <body>
         <Provider>
           <div className="main">
