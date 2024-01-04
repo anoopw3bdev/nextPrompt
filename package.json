@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "cypress:open": "cypress open"
   },
   "husky": {
     "hooks": {
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "cypress": "^13.6.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.2",
     "lint-staged": "^15.2.0",
